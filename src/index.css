@@ -14,7 +14,20 @@ html {
 }
 
 button {
+  cursor: pointer;
   font: inherit;
+  border-radius: 40px;
+  border: none;
+  padding: 15px;
+  /* background-image: linear-gradient(
+    to right bottom,
+    #73edff,
+    #5ad6e1,
+    #41bfc4,
+    #27a8a7,
+    #01928b
+  ); */
+  color: white;
 }
 
 body {
@@ -29,6 +42,14 @@ body {
   overflow-x: hidden;
   font-family: "Red Hat Display", sans-serif;
   font-size: 32px;
+  background-image: linear-gradient(
+    to left,
+    #ebf98d,
+    #f1f791,
+    #f6f696,
+    #fbf49b,
+    #fff3a0
+  );
 }
 
 /* BASE STYLES */

@@ -12,7 +12,7 @@
   text-align: center;
   transition: transform 1s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
   border-radius: 5px;
 }
 
@@ -29,17 +29,16 @@
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  background-color: #f5f1f9;
   color: black;
 }
 
 .flip-card-back {
-  background-color: #2980b9;
-  color: white;
+  background-color: #f5f1f9;
+  color: black;
   transform: rotateX(180deg);
 }
 
 .flipped .flip-card-inner {
   transform: rotateX(180deg);
-  background-color: blue;
 }
