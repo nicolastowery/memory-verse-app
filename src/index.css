@@ -1,0 +1,41 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+html {
+  scroll-behavior: auto;
+  height: 100%;
+  max-width: 100dvw;
+  cursor: default;
+}
+
+button {
+  font: inherit;
+}
+
+body {
+  /* font: 15px "Poppins", Helvetica, Arial, sans-serif; */
+  font-weight: 400;
+  line-height: 1.5;
+  /* background: var(--background-color); */
+  /* color: var(--black); */
+  /* position: relative; */
+  height: 100%;
+  /* z-index: 1; */
+  overflow-x: hidden;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 32px;
+}
+
+/* BASE STYLES */
+.app-container {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

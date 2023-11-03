@@ -19,7 +19,7 @@ function Card({ front, back, isLoading }) {
         </div>
       </div>
       <button onClick={handleCardFlip} disabled={isLoading}>
-        Flip Card
+        {isFlipped ? "Review" : "Quiz me!"}
       </button>
     </>
   );

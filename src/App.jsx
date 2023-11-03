@@ -4,6 +4,7 @@ import Card from "./components/Card/Card";
 import verses from "./data/verses";
 import { fetchVerse } from "./services/esvApi";
 import { useEffect, useState } from "react";
+import "./index.css";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [passage, setPassage] = useState("");
@@ -24,13 +25,15 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <Card
-        front={<Reference passage={passage} address={address} />}
-        back={<Quiz passage={passage} address={address} />}
-        isLoading={isLoading}
-      />
-      <button onClick={handleNewVerse}>New Verse</button>
+    <div className="app-container">
+      <div className="app">
+        <Card
+          front={<Reference passage={passage} address={address} />}
+          back={<Quiz passage={passage} address={address} />}
+          isLoading={isLoading}
+        />
+        <button onClick={handleNewVerse}>New Verse</button>
+      </div>
     </div>
   );
 }
