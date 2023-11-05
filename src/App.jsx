@@ -10,38 +10,41 @@ function App() {
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleNewVerse = async (e) => {
-    e && e.preventDefault();
-    setIsLoading(true);
-  };
-
-  useEffect(() => {
-    if (isLoading) {
-      const { book, address } =
+  const getVerse = () => {
+    
+    const { book, address } =
         verses[Math.floor(Math.random() * verses.length)];
       fetchVerse(book, address).then(({ passages, canonical }) => {
         setPassage(passages[0]);
         setAddress(canonical);
+  
         setIsLoading(false);
       });
-    }
-  }, [isLoading]); // Only fetch verse when isLoading changes
+  }
+
+  const handleNewVerse = async (e) => {
+    e && e.preventDefault();
+    getVerse();
+    // setIsLoading(true);
+  };
 
   useEffect(() => {
-    if (!isLoading) {
-      handleNewVerse();
-    }
-  }, []); // Fetch the first verse on component mount
+    if(isLoading)
+    {
+    getVerse();
+  }   
+  }, [isLoading]); // Only fetch verse when isLoading changes
+
 
   return (
     <div className="app-container">
       <div className="app">
         <Card
           front={<Reference passage={passage} address={address} />}
-          back={<Quiz passage={passage} address={address} />}
+          back={<Quiz passage={passage} address={address}  isLoading={isLoading} setIsLoading={setIsLoading}/>}
           isLoading={isLoading}
         />
-        <button onClick={handleNewVerse}>New Verse</button>
+        <button onClick={() => setIsLoading(true)}>New Verse</button>
       </div>
     </div>
   );

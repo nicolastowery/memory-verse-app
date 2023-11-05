@@ -8,6 +8,10 @@ export const fetchVerse = async (book, address) => {
       return data;
     }
   } catch (error) {
-    throw Error(error);
+    // throw Error(error);
+    return {canonical: 'John 3:30',
+  passages: [
+    '[30] He must increase, but I must decrease."'
+  ]}
   }
 };
