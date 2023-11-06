@@ -52,6 +52,32 @@ body {
   );
 }
 
+input {
+  font: inherit;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.04);
+  width: 200px;
+  padding: 0;
+  border: none;
+  text-align: center;
+  height: 44px;
+  caret-shape: underscore;
+  caret-color: rgba(0, 0, 0, 0.5);
+}
+
+input:focus {
+  border: 2px solid rgba(0, 0, 0, 0.07);
+  outline: none;
+}
+
+.input--correct {
+  background-color: rgba(0, 107, 32, 0.1);
+  color: black;
+}
+.input--incorrect {
+  background-color: rgba(107, 0, 0, 0.1);
+}
+
 /* BASE STYLES */
 .app-container {
   height: 100dvh;
