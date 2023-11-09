@@ -1,8 +1,33 @@
 import { useState } from "react";
-function Input({ answer }) {
+function Input({ answer, segment }) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState(false);
-  console.log("answer = ", answer);
+  const fragments = splitSegment(segment);
+
+  function splitSegment(input) {
+    const firstIndex = input.search(/\W/);
+
+    // found non-alphanumeric char
+    if (firstIndex !== -1) {
+      const firstPunctuation = input[firstIndex];
+      const secondIndex = input.slice(firstIndex + 1).search(/\W/);
+      if (secondIndex !== -1) {
+        // const secondPunctuation = input.slice(secondIndex);
+        const secondPunctuation = input[firstIndex + 1 + secondIndex];
+        return [
+          { punctuation: firstPunctuation, index: firstIndex },
+          { punctuation: secondPunctuation, index: secondIndex },
+        ];
+      }
+
+      return [{ punctuation: firstPunctuation, index: firstIndex }];
+    } else {
+      // no non-alphanumeric char found
+      return [input];
+    }
+  }
+
+  console.log("fragments", fragments);
   const handleBlur = (e) => {
     if (e.target.value !== "") {
       setAttempted(true);
@@ -17,6 +42,7 @@ function Input({ answer }) {
   };
   return (
     <>
+      {fragments[0].index === 0 && fragments[0].punctuation}
       <input
         type="text"
         onBlur={handleBlur}
@@ -25,7 +51,9 @@ function Input({ answer }) {
           (!isCorrect && attempted && "input--incorrect") ||
           ""
         }
-      />{" "}
+      />
+      {(fragments[0].index !== 0 && fragments[0].punctuation) ||
+        fragments[1]?.punctuation}{" "}
     </>
   );
 }

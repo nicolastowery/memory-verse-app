@@ -9,9 +9,9 @@ export const fetchVerse = async (book, address) => {
     }
   } catch (error) {
     // throw Error(error);
-    return {canonical: 'John 3:30',
-  passages: [
-    '[30] He must increase, but I must decrease."'
-  ]}
+    return {
+      canonical: "John 3:30",
+      passages: ['He must increase, but I must decrease."'],
+    };
   }
 };

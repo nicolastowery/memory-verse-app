@@ -46,9 +46,8 @@ function Quiz({ passage, address, isLoading, setIsLoading }) {
       <div>
         {segments.map((seg, i) => {
           const match = quiz.find((q) => i === q.index);
-          // console.log(isMatch);
           return match ? (
-            <Input key={i} answer={match} />
+            <Input key={i} answer={match} segment={seg} />
           ) : (
             <span key={i}>{seg + " "}</span>
           );
