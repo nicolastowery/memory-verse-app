@@ -13,5 +13,5 @@ export const fetchVerse = async (book, address) => {
       canonical: "John 3:30",
       passages: ['He must increase, but I must decrease."'],
     };
-  }
 };
+}

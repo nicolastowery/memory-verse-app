@@ -1,9 +1,9 @@
 import { useState } from "react";
-function Input({ answer, segment }) {
+
+function Input({ answer, segment, index, updateQuiz }) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const fragments = splitSegment(segment);
-
   function splitSegment(input) {
     const firstIndex = input.search(/\W/);
 
@@ -27,7 +27,6 @@ function Input({ answer, segment }) {
     }
   }
 
-  console.log("fragments", fragments);
   const handleBlur = (e) => {
     if (e.target.value !== "") {
       setAttempted(true);
@@ -36,8 +35,10 @@ function Input({ answer, segment }) {
     }
     if (e.target.value.toLowerCase() === answer.text.toLowerCase()) {
       setIsCorrect(true);
+      updateQuiz(index, 'correct')
     } else {
       setIsCorrect(false);
+      updateQuiz(index, 'incorrect')
     }
   };
   return (
