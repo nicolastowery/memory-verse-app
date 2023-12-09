@@ -1,4 +1,4 @@
-export const fetchVerse = async (book, address) => {
+export const getVerse = async (book, address) => {
   try {
     const res = await fetch(
       `http://localhost:3000/fetchVerse/${book}${address}`

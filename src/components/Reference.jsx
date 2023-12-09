@@ -1,4 +1,7 @@
-function Reference({ passage, address }) {
+import { usePassage } from "../context/PassageContext";
+
+function Reference() {
+  const {passage, address} = usePassage();
   return (
     <div>
       <div>{address}</div>

@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import Input from "./Input";
+import { usePassage } from "../context/PassageContext";
 const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
-function Quiz({ passage, address, isLoading, setIsLoading }) {
+function Quiz() {
+  const {passage, address, isLoading} = usePassage();
   const [quiz, setQuiz] = useState([]);
   const wordsRemaining = useRef(passage.match(regex));
   const segments = passage.trim().split(/—| /);
