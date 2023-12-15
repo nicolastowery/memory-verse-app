@@ -1,4 +1,4 @@
-export const getVerse = async (book, address) => {
+export const getVerse = async (book: string, address: string) => {
   try {
     const res = await fetch(
       `http://localhost:3000/fetchVerse/${book}${address}`
@@ -13,5 +13,5 @@ export const getVerse = async (book, address) => {
       canonical: "John 3:30",
       passages: ['He must increase, but I must decrease."'],
     };
+  }
 };
-}

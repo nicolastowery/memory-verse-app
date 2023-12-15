@@ -1,10 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-function Input({ answer, segment, index, updateQuiz }) {
+interface InputProps {
+  answer: {id: number, text: string};
+  segment: string;
+  index: number;
+  updateQuiz: (index: number, status: "incorrect" | "correct") => void;
+}
+function Input({ answer, segment, index, updateQuiz }: InputProps) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const fragments = splitSegment(segment);
-  function splitSegment(input) {
+  
+  function splitSegment(input: string) {
     const firstIndex = input.search(/\W/);
 
     // found non-alphanumeric char
@@ -27,7 +34,7 @@ function Input({ answer, segment, index, updateQuiz }) {
     }
   }
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
       setAttempted(true);
     } else {
@@ -35,10 +42,10 @@ function Input({ answer, segment, index, updateQuiz }) {
     }
     if (e.target.value.toLowerCase() === answer.text.toLowerCase()) {
       setIsCorrect(true);
-      updateQuiz(index, 'correct')
+      updateQuiz(index, "correct");
     } else {
       setIsCorrect(false);
-      updateQuiz(index, 'incorrect')
+      updateQuiz(index, "incorrect");
     }
   };
   return (
@@ -60,3 +67,4 @@ function Input({ answer, segment, index, updateQuiz }) {
 }
 
 export default Input;
+>

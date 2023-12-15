@@ -1,9 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./Card.module.css";
 import { usePassage } from "../../context/PassageContext";
 
 function Card({ front, back }) {
-  const {isLoading} = usePassage();
+  const { isLoading } = usePassage();
   const [isFlipped, setIsFlipped] = useState(false);
   const handleCardFlip = () => {
     setIsFlipped(!isFlipped);
