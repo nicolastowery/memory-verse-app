@@ -5,13 +5,15 @@ export const getVerse = async (book: string, address: string) => {
     );
     if (res.ok) {
       const data = await res.json();
+      data.passages[0] = data.passages[0].split(" ");
       return data;
     }
   } catch (error) {
+    console.log("error!");
     // throw Error(error);
     return {
       canonical: "John 3:30",
-      passages: ['He must increase, but I must decrease."'],
+      passages: [["He", "must", "increase,", "but", "I", "must", 'decrease."']],
     };
   }
 };

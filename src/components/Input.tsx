@@ -1,56 +1,35 @@
-import React, { useState } from "react";
+import React, { FocusEvent, FocusEventHandler, useState } from "react";
+import { splitSegment } from "../utils/helpers";
 
 interface InputProps {
-  answer: {id: number, text: string};
-  segment: string;
+  block: string;
   index: number;
-  updateQuiz: (index: number, status: "incorrect" | "correct") => void;
+  onQuizAnswer: (index: number, status: "correct" | "incorrect") => void;
 }
-function Input({ answer, segment, index, updateQuiz }: InputProps) {
+
+export default function Input({ block, index, onQuizAnswer }: InputProps) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState(false);
-  const fragments = splitSegment(segment);
-  
-  function splitSegment(input: string) {
-    const firstIndex = input.search(/\W/);
+  const [leftSymbols, answer, rightSymbols] = splitSegment(block);
 
-    // found non-alphanumeric char
-    if (firstIndex !== -1) {
-      const firstPunctuation = input[firstIndex];
-      const secondIndex = input.slice(firstIndex + 1).search(/\W/);
-      if (secondIndex !== -1) {
-        // const secondPunctuation = input.slice(secondIndex);
-        const secondPunctuation = input[firstIndex + 1 + secondIndex];
-        return [
-          { punctuation: firstPunctuation, index: firstIndex },
-          { punctuation: secondPunctuation, index: secondIndex },
-        ];
-      }
-
-      return [{ punctuation: firstPunctuation, index: firstIndex }];
-    } else {
-      // no non-alphanumeric char found
-      return [input];
-    }
-  }
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur: FocusEventHandler = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
       setAttempted(true);
     } else {
       setAttempted(false);
     }
-    if (e.target.value.toLowerCase() === answer.text.toLowerCase()) {
+    if (e.target.value.toLowerCase() === answer.toLowerCase()) {
       setIsCorrect(true);
-      updateQuiz(index, "correct");
+      onQuizAnswer(index, "correct");
     } else {
       setIsCorrect(false);
-      updateQuiz(index, "incorrect");
+      onQuizAnswer(index, "incorrect");
     }
   };
+
   return (
     <>
-      {fragments[0].index === 0 && fragments[0].punctuation}
+      {leftSymbols}
       <input
         type="text"
         onBlur={handleBlur}
@@ -60,11 +39,7 @@ function Input({ answer, segment, index, updateQuiz }: InputProps) {
           ""
         }
       />
-      {(fragments[0].index !== 0 && fragments[0].punctuation) ||
-        fragments[1]?.punctuation}{" "}
+      {rightSymbols + " "}
     </>
   );
 }
-
-export default Input;
->

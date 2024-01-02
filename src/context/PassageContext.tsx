@@ -1,4 +1,4 @@
-import React, {
+import {
   useContext,
   createContext,
   useEffect,
@@ -9,10 +9,10 @@ import verses from "../data/verses";
 import { getVerse } from "../services/esvApi";
 
 interface PassageContextType {
-  passage: string;
+  passage: string[];
   address: string;
   isLoading: boolean;
-  handleNewVerse: (e: Event) => Promise<void>;
+  handleNewVerse: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
 const PassageContext = createContext<PassageContextType | undefined>(undefined);
@@ -22,7 +22,7 @@ interface PassageProviderProps {
 }
 
 function PassageProvider({ children }: PassageProviderProps) {
-  const [passage, setPassage] = useState("");
+  const [passage, setPassage] = useState([]);
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,9 +36,10 @@ function PassageProvider({ children }: PassageProviderProps) {
     });
   };
 
-  const handleNewVerse = async (e: Event) => {
+  const handleNewVerse = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    fetchVerse();
+    const verse = await fetchVerse();
+    return verse;
   };
 
   useEffect(() => {

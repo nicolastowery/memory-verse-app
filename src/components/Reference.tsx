@@ -1,4 +1,3 @@
-import React from "react";
 import { usePassage } from "../context/PassageContext";
 
 function Reference() {
@@ -7,7 +6,7 @@ function Reference() {
     <div>
       <div>{address}</div>
       <br />
-      <div>{passage}</div>
+      <div>{passage.map((p) => p + " ")}</div>
     </div>
   );
 }
