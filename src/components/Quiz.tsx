@@ -31,10 +31,13 @@ export default function Quiz() {
     );
   };
 
-  // if (quiz.length > 0) {
-  //   const allWordsAnsweredCorrect = quiz.filter((item) => item);
-  //   allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
-  // }
+  // This is for adding more words to the quiz after all the current words have been answered correctly
+  if (quiz.length > 0) {
+    const allWordsAnsweredCorrect = quiz.filter((item) => item);
+    console.log("all words");
+    console.log(allWordsAnsweredCorrect);
+    // allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
+  }
 
   if (isLoading) return <div>Loading...</div>;
   return (
