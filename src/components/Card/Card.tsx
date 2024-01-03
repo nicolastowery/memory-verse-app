@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
-import styles from "./Card.module.css";
 import { usePassage } from "../../context/PassageContext";
+import styles from "./Card.module.css";
 
 interface CardProps {
   front: ReactNode;
@@ -10,9 +10,11 @@ interface CardProps {
 export default function Card({ front, back }: CardProps) {
   const { isLoading } = usePassage();
   const [isFlipped, setIsFlipped] = useState(false);
+
   const handleCardFlip = () => {
     setIsFlipped((prevIsFlipped) => !prevIsFlipped);
   };
+
   return (
     <>
       <div

@@ -11,6 +11,7 @@ export default function Input({ block, index, onQuizAnswer }: InputProps) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const [leftSymbols, answer, rightSymbols] = splitSegment(block);
+  console.log(splitSegment(block));
 
   const handleBlur: FocusEventHandler = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {

@@ -22,7 +22,7 @@ interface PassageProviderProps {
 }
 
 function PassageProvider({ children }: PassageProviderProps) {
-  const [passage, setPassage] = useState([]);
+  const [passage, setPassage] = useState<string[]>([]);
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 

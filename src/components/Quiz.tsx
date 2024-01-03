@@ -8,7 +8,7 @@ const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 export default function Quiz() {
   const { passage, address, isLoading } = usePassage();
   const [quiz, setQuiz] = useState<QuizObject[]>([]);
-  console.log("render");
+
   useEffect(() => {
     if (passage.length > 0 && quiz.length === 0) {
       const newQuizInput: QuizObject[] = passage.map((p, i) => ({
@@ -31,10 +31,10 @@ export default function Quiz() {
     );
   };
 
-  if (quiz.length > 0) {
-    // const allWordsAnsweredCorrect = quiz.filter((item) => item);
-    allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
-  }
+  // if (quiz.length > 0) {
+  //   const allWordsAnsweredCorrect = quiz.filter((item) => item);
+  //   allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
+  // }
 
   if (isLoading) return <div>Loading...</div>;
   return (
