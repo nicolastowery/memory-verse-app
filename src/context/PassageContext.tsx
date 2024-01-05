@@ -28,10 +28,10 @@ function PassageProvider({ children }: PassageProviderProps) {
 
   const fetchVerse = () => {
     const { book, address } = verses[Math.floor(Math.random() * verses.length)];
-    getVerse(book, address).then(({ passages, canonical }) => {
+    getVerse(book, address).then((result) => {
+      const { canonical, passages } = result;
       setPassage(passages[0]);
       setAddress(canonical);
-
       setIsLoading(false);
     });
   };
