@@ -21,7 +21,7 @@ export default function Quiz() {
       console.log(newQuizInput);
       setQuiz(getRandomValues(newQuizInput));
     }
-  }, [passage, quiz]);
+  }, [passage, quiz.length]);
 
   const updateQuiz = (index: number, status: "incorrect" | "correct") => {
     setQuiz((prevQuiz) =>
