@@ -6,7 +6,7 @@ import Input from "./Input";
 const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 
 export default function Quiz() {
-  const { passage, address, isLoading } = usePassage();
+  const { passage, address, isLoading, fetchVerse } = usePassage();
   const [quiz, setQuiz] = useState<QuizObject[]>([]);
 
   useEffect(() => {
@@ -33,17 +33,23 @@ export default function Quiz() {
 
   // This is for adding more words to the quiz after all the current words have been answered correctly
   if (quiz.length > 0) {
+    console.log("running check");
     const allCurrentQuizWords = quiz.filter((q) => q.selected === true);
     const correctlyAnsweredQuizWords = allCurrentQuizWords.filter(
       (q) => q.answerStatus === "correct"
     );
-    if (allCurrentQuizWords.length === correctlyAnsweredQuizWords.length) {
-      console.log("All words are answered correctly!");
-      setQuiz((prevQuiz) => getRandomValues(prevQuiz));
+    if (correctlyAnsweredQuizWords.length === quiz.length) {
+      fetchVerse();
+    } else if (
+      allCurrentQuizWords.length === correctlyAnsweredQuizWords.length
+    ) {
+      const newQuizInput: QuizObject[] = quiz.map((q) => ({
+        ...q,
+        answerStatus: "none",
+      }));
+
+      setQuiz(getRandomValues(newQuizInput));
     }
-    // console.log("all words");
-    // console.log(allWordsAnsweredCorrect);
-    // allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
   }
 
   if (isLoading) return <div>Loading...</div>;
@@ -59,6 +65,7 @@ export default function Quiz() {
             key={q.originalIndex}
             index={q.originalIndex}
             block={q.block}
+            answerStatus={q.answerStatus}
             onQuizAnswer={updateQuiz}
           />
         )

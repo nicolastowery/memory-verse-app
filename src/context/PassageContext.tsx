@@ -13,6 +13,7 @@ interface PassageContextType {
   address: string;
   isLoading: boolean;
   handleNewVerse: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  fetchVerse: () => void;
 }
 
 const PassageContext = createContext<PassageContextType | undefined>(undefined);
@@ -29,6 +30,7 @@ function PassageProvider({ children }: PassageProviderProps) {
   const fetchVerse = () => {
     const { book, address } = verses[Math.floor(Math.random() * verses.length)];
     getVerse(book, address).then(({ passages, canonical }) => {
+      console.log("setting state!");
       setPassage(passages[0]);
       setAddress(canonical);
 
@@ -51,7 +53,7 @@ function PassageProvider({ children }: PassageProviderProps) {
 
   return (
     <PassageContext.Provider
-      value={{ passage, address, isLoading, handleNewVerse }}
+      value={{ passage, address, isLoading, handleNewVerse, fetchVerse }}
     >
       {children}
     </PassageContext.Provider>

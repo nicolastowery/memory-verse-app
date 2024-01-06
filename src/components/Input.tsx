@@ -4,12 +4,21 @@ import { splitSegment } from "../utils/helpers";
 interface InputProps {
   block: string;
   index: number;
+  answerStatus: "correct" | "incorrect" | "none";
   onQuizAnswer: (index: number, status: "correct" | "incorrect") => void;
 }
 
-export default function Input({ block, index, onQuizAnswer }: InputProps) {
+export default function Input({
+  block,
+  index,
+  answerStatus,
+  onQuizAnswer,
+}: InputProps) {
   const [isCorrect, setIsCorrect] = useState(false);
-  const [attempted, setAttempted] = useState(false);
+  const [attempted, setAttempted] = useState<boolean>(
+    answerStatus === "none" && false
+  );
+  const [input, setInput] = useState("");
   const [leftSymbols, answer, rightSymbols] = splitSegment(block);
 
   const handleBlur: FocusEventHandler = (e: FocusEvent<HTMLInputElement>) => {
@@ -27,12 +36,24 @@ export default function Input({ block, index, onQuizAnswer }: InputProps) {
     }
   };
 
+  if (
+    answerStatus === "none" &&
+    input !== "" &&
+    isCorrect === true &&
+    attempted === true
+  ) {
+    setInput("");
+    setAttempted(false);
+  }
+
   return (
     <>
       {leftSymbols}
       <input
         type="text"
+        onChange={(e) => setInput(e.target.value)}
         onBlur={handleBlur}
+        value={input}
         className={
           (isCorrect && attempted && "input--correct") ||
           (!isCorrect && attempted && "input--incorrect") ||
