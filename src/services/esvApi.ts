@@ -1,19 +1,34 @@
-export const getVerse = async (book: string, address: string) => {
+export interface VerseReturn {
+  canonical: string;
+  passages: [string[]];
+}
+
+// type IncompatableString = "" | "\n\n" | "\n";
+
+const getDefaultVerseReturn = (): VerseReturn => {
+  return {
+    canonical: "John 3:30",
+    passages: [["He", "must", "increase,", "but", "I", "must", 'decrease."']],
+  };
+};
+
+export const getVerse = async (
+  book: string,
+  address: string
+): Promise<VerseReturn> => {
   try {
     const res = await fetch(
       `http://localhost:3000/fetchVerse/${book}${address}`
     );
-    if (res.ok) {
-      const data = await res.json();
-      data.passages[0] = data.passages[0].split(" ");
-      return data;
-    }
+    const data = await res.json();
+    const { canonical, passages } = data;
+    data.passages[0] = data.passages[0].split(" ");
+    data.passages[0] = data.passages[0].filter(
+      (p: string) => p !== "" && p !== "\n\n"
+    );
+    console.log(data.passages[0]);
+    return { canonical, passages };
   } catch (error) {
-    console.log("error!");
-    // throw Error(error);
-    return {
-      canonical: "John 3:30",
-      passages: [["He", "must", "increase,", "but", "I", "must", 'decrease."']],
-    };
+    return getDefaultVerseReturn();
   }
 };
