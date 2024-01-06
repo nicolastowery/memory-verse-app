@@ -33,9 +33,16 @@ export default function Quiz() {
 
   // This is for adding more words to the quiz after all the current words have been answered correctly
   if (quiz.length > 0) {
-    const allWordsAnsweredCorrect = quiz.filter((item) => item);
-    console.log("all words");
-    console.log(allWordsAnsweredCorrect);
+    const allCurrentQuizWords = quiz.filter((q) => q.selected === true);
+    const correctlyAnsweredQuizWords = allCurrentQuizWords.filter(
+      (q) => q.answerStatus === "correct"
+    );
+    if (allCurrentQuizWords.length === correctlyAnsweredQuizWords.length) {
+      console.log("All words are answered correctly!");
+      setQuiz((prevQuiz) => getRandomValues(prevQuiz));
+    }
+    // console.log("all words");
+    // console.log(allWordsAnsweredCorrect);
     // allWordsAnsweredCorrect && setQuiz((prevQuiz) => getRandomValues(prevQuiz));
   }
 
