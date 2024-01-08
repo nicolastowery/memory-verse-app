@@ -22,7 +22,7 @@ export const getVerse = async (
     );
     const data = await res.json();
     const { canonical, passages } = data;
-    data.passages[0] = data.passages[0].split(" ");
+    data.passages[0] = data.passages[0].split(/[ —]/);
     data.passages[0] = data.passages[0].filter(
       (p: string) => p !== "" && p !== "\n\n"
     );
