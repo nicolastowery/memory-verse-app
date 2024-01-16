@@ -26,7 +26,6 @@ export default function Quiz() {
         selected: false,
         answerStatus: "none",
       }));
-      console.log("CONDITION MET", newQuizInput);
       setQuiz(getRandomValues(newQuizInput));
     }
   }, [passage, quiz.length]);
@@ -50,11 +49,6 @@ export default function Quiz() {
       correctlyAnsweredQuizWords.length === quiz.length &&
       passage.length === quiz.length
     ) {
-      console.log(
-        "correctlyAnsweredQuizWords.length",
-        correctlyAnsweredQuizWords.length
-      );
-      console.log("quiz.length", quiz.length);
       fetchVerse();
     } else if (
       allCurrentQuizWords.length === correctlyAnsweredQuizWords.length
