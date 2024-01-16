@@ -10,7 +10,15 @@ export default function Quiz() {
   const [quiz, setQuiz] = useState<QuizObject[]>([]);
 
   useEffect(() => {
-    if (passage.length > 0 && quiz.length === 0) {
+    console.log(
+      `${passage.length} > 0 && (${quiz.length} === 0 || ${quiz.length} !== ${passage.length})`
+    );
+    // Checking the length of the quiz and passage is not fool-proof
+    // Best to devise a helper function that compares the data within the two string arrays to
+    if (
+      passage.length > 0 &&
+      (quiz.length === 0 || quiz.length !== passage.length)
+    ) {
       const newQuizInput: QuizObject[] = passage.map((p, i) => ({
         block: p,
         word: p.match(regex)![0],
@@ -18,7 +26,7 @@ export default function Quiz() {
         selected: false,
         answerStatus: "none",
       }));
-      console.log(newQuizInput);
+      console.log("CONDITION MET", newQuizInput);
       setQuiz(getRandomValues(newQuizInput));
     }
   }, [passage, quiz.length]);
@@ -38,7 +46,15 @@ export default function Quiz() {
     const correctlyAnsweredQuizWords = allCurrentQuizWords.filter(
       (q) => q.answerStatus === "correct"
     );
-    if (correctlyAnsweredQuizWords.length === quiz.length) {
+    if (
+      correctlyAnsweredQuizWords.length === quiz.length &&
+      passage.length === quiz.length
+    ) {
+      console.log(
+        "correctlyAnsweredQuizWords.length",
+        correctlyAnsweredQuizWords.length
+      );
+      console.log("quiz.length", quiz.length);
       fetchVerse();
     } else if (
       allCurrentQuizWords.length === correctlyAnsweredQuizWords.length

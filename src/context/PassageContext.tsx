@@ -13,7 +13,7 @@ interface PassageContextType {
   address: string;
   isLoading: boolean;
   handleNewVerse: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
-  fetchVerse: () => void;
+  fetchVerse: () => Promise<void>;
 }
 
 const PassageContext = createContext<PassageContextType | undefined>(undefined);
@@ -27,7 +27,7 @@ function PassageProvider({ children }: PassageProviderProps) {
   const [address, setAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchVerse = () => {
+  const fetchVerse = async (): Promise<void> => {
     const { book, address } = verses[Math.floor(Math.random() * verses.length)];
     getVerse(book, address).then(({ passages, canonical }) => {
       setPassage(passages[0]);
