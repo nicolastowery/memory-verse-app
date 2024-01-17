@@ -1,4 +1,4 @@
-import React, { FocusEvent, FocusEventHandler, useState } from "react";
+import { FocusEvent, FocusEventHandler, useState } from "react";
 import { splitSegment } from "../utils/helpers";
 
 interface InputProps {
