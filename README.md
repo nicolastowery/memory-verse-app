@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# [Memory Verse App](https://memory-verse-app.vercel.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+View live demo [here!](https://memory-verse-app.vercel.app)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Memory Verse App serves as a way for users to memorize Bible verses using the ESV translation. It utilizes the ESV API. Upon loading into the app, users will be greeted with a card that they can flip. On the front is the verse in its entirety. On the back is the quiz. Each round of the quiz will take away three words from the verse until there are no words left. After all words have been correctly answered, a new verse will appear for the user to be quizzed on. At any time, the user can flip the card back over to reference the verse in full, or they can request a new verse from the API. 
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- HTML5
+- CSS3
+- TypeScript
+- React.js
+- useContext
+- Node.js
+- Express
+- Vite
+- Lodash
 
-- Configure the top-level `parserOptions` property like this:
+## Methodologies Used
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Component Based Rendering
+- Asynchronous Programming
+- Single Page Application (SPA)
+- React Hooks
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Notes
+
+- This is a very early, incomplete prototype version of the application. It is currently in its most basic state, lacking critical features such as user input sanitation, responsive web design, and mandatory license compliance.
+- All Node.js server code is in a private repository.
