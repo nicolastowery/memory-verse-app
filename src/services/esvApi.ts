@@ -18,7 +18,7 @@ export const getVerse = async (
 ): Promise<VerseReturn> => {
   try {
     const res = await fetch(
-      `http://localhost:3000/fetchVerse/${book}${address}`
+      `https://esv-api.vercel.app/fetchVerse/${book}${address}`
     );
     const data = await res.json();
     const { canonical, passages } = data;
