@@ -27,7 +27,11 @@ export default function Card({ front, back }: CardProps) {
           <div className={styles["flip-card-back"]}>{back}</div>
         </div>
       </div>
-      <button onClick={handleCardFlip} disabled={isLoading}>
+      <button
+        onClick={handleCardFlip}
+        disabled={isLoading}
+        className="buttonShadow"
+      >
         {isFlipped ? "Review" : "Quiz me!"}
       </button>
     </>

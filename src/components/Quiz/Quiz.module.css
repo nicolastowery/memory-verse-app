@@ -1,0 +1,17 @@
+.quizContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+}
+
+@media (max-width: 1080px) {
+  .quizContainer {
+    row-gap: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .quizContainer {
+    row-gap: 10px;
+  }
+}

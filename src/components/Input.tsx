@@ -51,6 +51,10 @@ export default function Input({
       {leftSymbols}
       <input
         type="text"
+        style={{
+          width:
+            block.length * 25 <= 100 ? block.length * 30 : block.length * 25,
+        }}
         onChange={(e) => setInput(e.target.value)}
         onBlur={handleBlur}
         value={input}

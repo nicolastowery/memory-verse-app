@@ -16,18 +16,21 @@ html {
 button {
   cursor: pointer;
   font: inherit;
-  border-radius: 40px;
+  border-radius: 10px;
   border: none;
-  padding: 15px;
-  /* background-image: linear-gradient(
-    to right bottom,
-    #73edff,
-    #5ad6e1,
-    #41bfc4,
-    #27a8a7,
-    #01928b
-  ); */
-  color: white;
+  padding: 10px;
+  color: #f5f1f9;
+  background: none;
+  border: 2px solid #f5f1f9;
+  transition: transform 0.2s ease-in-out;
+  width: 200px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+button:hover {
+  transform: translate(-10px, -10px);
+  box-shadow: 10px 10px rgba(0, 0, 0); /* Keep the same shadow on hover */
 }
 
 body {
@@ -42,40 +45,46 @@ body {
   overflow-x: hidden;
   font-family: "Red Hat Display", sans-serif;
   font-size: 32px;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to left,
     #ebf98d,
     #f1f791,
     #f6f696,
     #fbf49b,
     #fff3a0
+  ); */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 0, 29, 1) 35%
   );
 }
 
 input {
   font: inherit;
-  color: rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.04);
-  width: 200px;
-  padding: 0;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.08);
+  /* width: 200px; */
+  padding: 25px 0;
   border: none;
   text-align: center;
   height: 44px;
-  caret-shape: underscore;
-  caret-color: rgba(0, 0, 0, 0.5);
+  caret-shape: block;
+  caret-color: rgba(255, 255, 255, 0.8);
 }
 
 input:focus {
-  border: 2px solid rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   outline: none;
 }
 
 .input--correct {
-  background-color: rgba(0, 107, 32, 0.1);
+  background-color: rgba(204, 243, 201);
   color: black;
 }
 .input--incorrect {
-  background-color: rgba(107, 0, 0, 0.1);
+  background-color: rgba(107, 0, 0, 0.6);
 }
 
 /* BASE STYLES */
@@ -85,4 +94,17 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 1080px) {
+  input {
+    height: 90%;
+    padding: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  input {
+    height: 80%;
+  }
 }

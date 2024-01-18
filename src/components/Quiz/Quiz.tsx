@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { usePassage } from "../context/PassageContext";
-import { QuizObject } from "../types/QuizTypes";
-import { getRandomValues } from "../utils/helpers";
-import Input from "./Input";
+import { usePassage } from "../../context/PassageContext";
+import { QuizObject } from "../../types/QuizTypes";
+import { getRandomValues } from "../../utils/helpers";
+import Input from "../Input";
+import styles from "./Quiz.module.css";
 const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 
 export default function Quiz() {
@@ -64,22 +65,23 @@ export default function Quiz() {
 
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div>
+    <div className={styles.quizContainer}>
       <div>{address}</div>
-      <br />
-      {quiz.map((q) =>
-        !q.selected ? (
-          q.block + " "
-        ) : (
-          <Input
-            key={q.originalIndex}
-            index={q.originalIndex}
-            block={q.block}
-            answerStatus={q.answerStatus}
-            onQuizAnswer={updateQuiz}
-          />
-        )
-      )}
+      <div>
+        {quiz.map((q) =>
+          !q.selected ? (
+            q.block + " "
+          ) : (
+            <Input
+              key={q.originalIndex}
+              index={q.originalIndex}
+              block={q.block}
+              answerStatus={q.answerStatus}
+              onQuizAnswer={updateQuiz}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 }
