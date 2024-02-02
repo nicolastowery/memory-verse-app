@@ -70,8 +70,12 @@ body {
   align-items: center;
 }
 
-@media (max-width: 750px) {
-  input {
-    height: 30px;
+@media (max-width: 640px) {
+  .app-container {
+    align-items: start;
+  }
+
+  .app {
+    margin: 20px;
   }
 }

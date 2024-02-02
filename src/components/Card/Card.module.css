@@ -64,3 +64,10 @@
     font-size: 80%;
   }
 }
+
+@media (max-width: 640px) {
+  .flip-card {
+    width: 90dvw;
+    height: 55dvh;
+  }
+}
