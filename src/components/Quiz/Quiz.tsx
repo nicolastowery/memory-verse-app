@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { usePassage } from "../../context/PassageContext";
 import { QuizObject } from "../../types/QuizTypes";
 import { getRandomValues } from "../../utils/helpers";
-import Input from "../Input";
+import Input from "../Input/Input";
 import styles from "./Quiz.module.css";
 const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 

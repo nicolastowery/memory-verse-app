@@ -1,5 +1,6 @@
 import { FocusEvent, FocusEventHandler, useState } from "react";
-import { splitSegment } from "../utils/helpers";
+import { splitSegment } from "../../utils/helpers";
+import { StyledInput } from "./StyledInput";
 
 interface InputProps {
   block: string;
@@ -20,7 +21,7 @@ export default function Input({
   );
   const [input, setInput] = useState("");
   const [leftSymbols, answer, rightSymbols] = splitSegment(block);
-
+  const baseWidth = block.length;
   const handleBlur: FocusEventHandler = (e: FocusEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
       setAttempted(true);
@@ -49,21 +50,20 @@ export default function Input({
   return (
     <>
       {leftSymbols}
-      <input
+      <StyledInput
         type="text"
-        style={{
-          width:
-            block.length * 25 <= 100 ? block.length * 30 : block.length * 25,
-        }}
         onChange={(e) => setInput(e.target.value)}
         onBlur={handleBlur}
         value={input}
-        className={
-          (isCorrect && attempted && "input--correct") ||
-          (!isCorrect && attempted && "input--incorrect") ||
-          ""
+        baseWidth={baseWidth}
+        // change this to be answerStatus, but answerStatus needs to updated accordingly
+        status={
+          (isCorrect && attempted && "correct") ||
+          (!isCorrect && attempted && "incorrect") ||
+          "none"
         }
       />
+
       {rightSymbols + " "}
     </>
   );

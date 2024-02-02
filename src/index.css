@@ -61,32 +61,6 @@ body {
   );
 }
 
-input {
-  font: inherit;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(255, 255, 255, 0.08);
-  /* width: 200px; */
-  padding: 25px 0;
-  border: none;
-  text-align: center;
-  height: 44px;
-  caret-shape: block;
-  caret-color: rgba(255, 255, 255, 0.8);
-}
-
-input:focus {
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  outline: none;
-}
-
-.input--correct {
-  background-color: rgba(204, 243, 201);
-  color: black;
-}
-.input--incorrect {
-  background-color: rgba(107, 0, 0, 0.6);
-}
-
 /* BASE STYLES */
 .app-container {
   height: 100dvh;
@@ -94,13 +68,6 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-@media (max-width: 1080px) {
-  input {
-    height: 35px;
-    padding: 0;
-  }
 }
 
 @media (max-width: 750px) {
