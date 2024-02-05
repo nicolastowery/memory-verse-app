@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePassage } from "../../context/PassageContext";
 import { QuizObject } from "../../types/QuizTypes";
 import { getRandomValues } from "../../utils/helpers";
@@ -6,14 +6,23 @@ import Input from "../Input/Input";
 import styles from "./Quiz.module.css";
 const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 
-export default function Quiz() {
+interface QuizProps {
+  isFlipped: boolean;
+}
+
+export default function Quiz({ isFlipped }: QuizProps) {
   const { passage, address, isLoading, fetchVerse } = usePassage();
   const [quiz, setQuiz] = useState<QuizObject[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const quizInputs = quiz.filter((q) => q.selected);
+  const [current, setCurrent] = useState(0);
+  useEffect(() => {
+    if (isFlipped && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isFlipped, current]);
 
   useEffect(() => {
-    console.log(
-      `${passage.length} > 0 && (${quiz.length} === 0 || ${quiz.length} !== ${passage.length})`
-    );
     // Checking the length of the quiz and passage is not fool-proof
     // Best to devise a helper function that compares the data within the two string arrays to
     if (
@@ -32,6 +41,8 @@ export default function Quiz() {
   }, [passage, quiz.length]);
 
   const updateQuiz = (index: number, status: "incorrect" | "correct") => {
+    status === "correct" && setCurrent((cur) => cur + 1);
+
     setQuiz((prevQuiz) =>
       prevQuiz.map((item) =>
         item.originalIndex === index ? { ...item, answerStatus: status } : item
@@ -41,7 +52,6 @@ export default function Quiz() {
 
   // This is for adding more words to the quiz after all the current words have been answered correctly
   if (quiz.length > 0) {
-    console.log("running check");
     const allCurrentQuizWords = quiz.filter((q) => q.selected === true);
     const correctlyAnsweredQuizWords = allCurrentQuizWords.filter(
       (q) => q.answerStatus === "correct"
@@ -58,7 +68,7 @@ export default function Quiz() {
         ...q,
         answerStatus: "none",
       }));
-
+      setCurrent(0);
       setQuiz(getRandomValues(newQuizInput));
     }
   }
@@ -68,8 +78,8 @@ export default function Quiz() {
     <div className={styles.quizContainer}>
       <div>{address}</div>
       <div>
-        {quiz.map((q) =>
-          !q.selected ? (
+        {quiz.map((q) => {
+          return !q.selected ? (
             q.block + " "
           ) : (
             <Input
@@ -78,9 +88,15 @@ export default function Quiz() {
               block={q.block}
               answerStatus={q.answerStatus}
               onQuizAnswer={updateQuiz}
+              forwardedRef={
+                quizInputs[current] &&
+                quizInputs[current].originalIndex === q.originalIndex
+                  ? inputRef
+                  : null
+              }
             />
-          )
-        )}
+          );
+        })}
       </div>
     </div>
   );

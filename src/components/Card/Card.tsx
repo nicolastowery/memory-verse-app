@@ -1,13 +1,10 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { usePassage } from "../../context/PassageContext";
 import styles from "./Card.module.css";
+import Reference from "../Reference";
+import Quiz from "../Quiz/Quiz";
 
-interface CardProps {
-  front: ReactNode;
-  back: ReactNode;
-}
-
-export default function Card({ front, back }: CardProps) {
+export default function Card() {
   const { isLoading } = usePassage();
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -23,8 +20,10 @@ export default function Card({ front, back }: CardProps) {
         }
       >
         <div className={styles["flip-card-inner"]}>
-          <div className={styles["flip-card-front"]}>{front}</div>
-          <div className={styles["flip-card-back"]}>{back}</div>
+          <div className={styles["flip-card-front"]}>{<Reference />}</div>
+          <div className={styles["flip-card-back"]}>
+            {<Quiz isFlipped={isFlipped} />}
+          </div>
         </div>
       </div>
       <button

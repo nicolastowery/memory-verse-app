@@ -1,5 +1,4 @@
 import { usePassage } from "../context/PassageContext";
-
 function Reference() {
   const { passage, address } = usePassage();
   return (

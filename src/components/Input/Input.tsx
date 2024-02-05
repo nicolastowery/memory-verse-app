@@ -1,4 +1,10 @@
-import { FocusEvent, FocusEventHandler, useState } from "react";
+import {
+  FocusEvent,
+  FocusEventHandler,
+  useState,
+  ForwardedRef,
+  ChangeEvent,
+} from "react";
 import { splitSegment } from "../../utils/helpers";
 import { StyledInput } from "./StyledInput";
 
@@ -7,6 +13,7 @@ interface InputProps {
   index: number;
   answerStatus: "correct" | "incorrect" | "none";
   onQuizAnswer: (index: number, status: "correct" | "incorrect") => void;
+  forwardedRef: ForwardedRef<HTMLInputElement | null> | null;
 }
 
 export default function Input({
@@ -14,6 +21,7 @@ export default function Input({
   index,
   answerStatus,
   onQuizAnswer,
+  forwardedRef,
 }: InputProps) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempted, setAttempted] = useState<boolean>(
@@ -37,32 +45,70 @@ export default function Input({
     }
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(forwardedRef === null);
+    console.log(e.target.value);
+    setInput(e.target.value);
+
+    if (e.target.value !== "") {
+      setAttempted(true);
+    } else {
+      setAttempted(false);
+    }
+    if (e.target.value.toLowerCase() === answer.toLowerCase()) {
+      setIsCorrect(true);
+      onQuizAnswer(index, "correct");
+    }
+  };
+
   if (
     answerStatus === "none" &&
     input !== "" &&
     isCorrect === true &&
     attempted === true
   ) {
+    console.log("");
     setInput("");
     setAttempted(false);
+    setIsCorrect(false);
   }
 
   return (
     <>
       {leftSymbols}
-      <StyledInput
-        type="text"
-        onChange={(e) => setInput(e.target.value)}
-        onBlur={handleBlur}
-        value={input}
-        baseWidth={baseWidth}
-        // change this to be answerStatus, but answerStatus needs to updated accordingly
-        status={
-          (isCorrect && attempted && "correct") ||
-          (!isCorrect && attempted && "incorrect") ||
-          "none"
-        }
-      />
+      {forwardedRef && (
+        <StyledInput
+          type="text"
+          onChange={(e) => handleChange(e)}
+          onBlur={(e) => handleBlur(e)}
+          value={input}
+          baseWidth={baseWidth}
+          // change this to be answerStatus, but answerStatus needs to updated accordingly
+          status={
+            (isCorrect && attempted && "correct") ||
+            (!isCorrect && attempted && "incorrect") ||
+            "none"
+          }
+          ref={forwardedRef}
+          autoFocus
+        />
+      )}
+      {!forwardedRef && (
+        <StyledInput
+          type="text"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={input}
+          baseWidth={baseWidth}
+          // change this to be answerStatus, but answerStatus needs to updated accordingly
+          status={
+            (isCorrect && attempted && "correct") ||
+            (!isCorrect && attempted && "incorrect") ||
+            "none"
+          }
+          disabled
+        />
+      )}
 
       {rightSymbols + " "}
     </>
