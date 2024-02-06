@@ -76,6 +76,16 @@ body {
   }
 
   .app {
-    margin: 20px;
+    margin: 5px;
+  }
+
+  button {
+    width: 150px;
+    font-size: 25px;
+  }
+
+  button:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 10px 10px rgba(0, 0, 0); /* Keep the same shadow on hover */
   }
 }

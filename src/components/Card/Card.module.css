@@ -67,7 +67,12 @@
 
 @media (max-width: 640px) {
   .flip-card {
-    width: 90dvw;
+    width: 99dvw;
     height: 70dvh;
+  }
+
+  .flip-card-back,
+  .flip-card-front {
+    letter-spacing: 0.5px;
   }
 }

@@ -1,8 +1,10 @@
+import { isString } from "lodash";
 import styled from "styled-components";
 
 interface StyledInputProps {
   status: "correct" | "incorrect" | "none";
   baseWidth: number;
+  answer?: string;
 }
 
 export const StyledInput = styled.input<StyledInputProps>`
@@ -16,6 +18,11 @@ export const StyledInput = styled.input<StyledInputProps>`
   padding: 25px 0;
   border: none;
   text-align: center;
+  text-transform: ${(props) =>
+    isString(props.answer) && /^[A-Z]/.test(props.answer)
+      ? "capitalize"
+      : "lowercase"};
+  border-radius: 0;
   height: 44px;
   caret-shape: block;
   caret-color: rgba(255, 255, 255, 0.8);
@@ -42,6 +49,7 @@ export const StyledInput = styled.input<StyledInputProps>`
       (props.baseWidth <= 3
         ? (props.baseWidth * 25) / 1.51
         : (props.baseWidth * 30) / 2.24) + "px"};
-    height: 30px;
+    height: 35px;
+    line-height: 30px;
   }
 `;

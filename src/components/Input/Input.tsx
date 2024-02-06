@@ -97,6 +97,7 @@ export default function Input({
           type="text"
           value={input}
           baseWidth={baseWidth}
+          answer={answer}
           // change this to be answerStatus, but answerStatus needs to updated accordingly
           status={
             (isCorrect && attempted && "correct") ||
