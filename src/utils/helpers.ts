@@ -14,7 +14,7 @@ export const splitSegment = (input: string) => {
   return [symbolsLeft, alphanumericCenter, symbolsRight];
 };
 
-// Returns an arra
+// Returns an array
 export const getRandomValues = (array: QuizObject[], count: number = 3) => {
   if (count > array.length) {
     throw new Error("Count should not exceed the length of the array.");

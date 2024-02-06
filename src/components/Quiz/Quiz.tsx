@@ -2,9 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { usePassage } from "../../context/PassageContext";
 import { QuizObject } from "../../types/QuizTypes";
 import { getRandomValues } from "../../utils/helpers";
+import Spinner from "../Spinner/Spinner";
 import Input from "../Input/Input";
 import styles from "./Quiz.module.css";
-const regex = /[a-zA-Z0-9]+(?![^[]*])\b/g;
+
+const REGEX = /[a-zA-Z0-9]+(?![^[]*])\b/g;
 
 interface QuizProps {
   isFlipped: boolean;
@@ -13,14 +15,15 @@ interface QuizProps {
 export default function Quiz({ isFlipped }: QuizProps) {
   const { passage, address, isLoading, fetchVerse } = usePassage();
   const [quiz, setQuiz] = useState<QuizObject[]>([]);
+  const [currentInput, setCurrentInput] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const quizInputs = quiz.filter((q) => q.selected);
-  const [current, setCurrent] = useState(0);
+
   useEffect(() => {
     if (isFlipped && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isFlipped, current]);
+  }, [isFlipped, currentInput]);
 
   useEffect(() => {
     // Checking the length of the quiz and passage is not fool-proof
@@ -31,7 +34,7 @@ export default function Quiz({ isFlipped }: QuizProps) {
     ) {
       const newQuizInput: QuizObject[] = passage.map((p, i) => ({
         block: p,
-        word: p.match(regex)![0],
+        word: p.match(REGEX)![0],
         originalIndex: i,
         selected: false,
         answerStatus: "none",
@@ -41,7 +44,7 @@ export default function Quiz({ isFlipped }: QuizProps) {
   }, [passage, quiz.length]);
 
   const updateQuiz = (index: number, status: "incorrect" | "correct") => {
-    status === "correct" && setCurrent((cur) => cur + 1);
+    status === "correct" && setCurrentInput((cur) => cur + 1);
 
     setQuiz((prevQuiz) =>
       prevQuiz.map((item) =>
@@ -56,6 +59,8 @@ export default function Quiz({ isFlipped }: QuizProps) {
     const correctlyAnsweredQuizWords = allCurrentQuizWords.filter(
       (q) => q.answerStatus === "correct"
     );
+
+    // If the entire quiz has been correctly answered, generate a new quiz
     if (
       correctlyAnsweredQuizWords.length === quiz.length &&
       passage.length === quiz.length
@@ -68,12 +73,12 @@ export default function Quiz({ isFlipped }: QuizProps) {
         ...q,
         answerStatus: "none",
       }));
-      setCurrent(0);
+      setCurrentInput(0);
       setQuiz(getRandomValues(newQuizInput));
     }
   }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
   return (
     <div className={styles.quizContainer}>
       <div>{address}</div>
@@ -89,8 +94,8 @@ export default function Quiz({ isFlipped }: QuizProps) {
               answerStatus={q.answerStatus}
               onQuizAnswer={updateQuiz}
               forwardedRef={
-                quizInputs[current] &&
-                quizInputs[current].originalIndex === q.originalIndex
+                quizInputs[currentInput] &&
+                quizInputs[currentInput].originalIndex === q.originalIndex
                   ? inputRef
                   : null
               }

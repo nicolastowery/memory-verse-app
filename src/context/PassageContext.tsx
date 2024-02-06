@@ -38,15 +38,13 @@ function PassageProvider({ children }: PassageProviderProps) {
 
   const handleNewVerse = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const verse = await fetchVerse();
     return verse;
   };
 
   useEffect(() => {
-    // if(isLoading)
-    // {
     fetchVerse();
-    // }
   }, []);
 
   return (
@@ -62,7 +60,7 @@ function usePassage() {
   const context = useContext(PassageContext);
 
   if (context === undefined) {
-    throw new Error("Passage Context was userd outside of PassageProvider");
+    throw new Error("Passage Context was used outside of PassageProvider");
   }
 
   return context;

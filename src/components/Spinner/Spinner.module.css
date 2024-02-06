@@ -1,0 +1,32 @@
+.spinner {
+  animation: spin 2.5s linear infinite;
+  font-size: 10rem;
+}
+
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 18%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start with no rotation */
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1080px) {
+  .spinnerContainer {
+    padding-top: 15%;
+  }
+}
+
+@media (max-width: 750px) {
+  .spinnerContainer {
+    padding-top: 8%;
+  }
+}

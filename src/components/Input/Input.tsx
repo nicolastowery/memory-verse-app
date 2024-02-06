@@ -79,8 +79,8 @@ export default function Input({
       {forwardedRef && (
         <StyledInput
           type="text"
-          onChange={(e) => handleChange(e)}
-          onBlur={(e) => handleBlur(e)}
+          onChange={handleChange}
+          onBlur={handleBlur}
           value={input}
           baseWidth={baseWidth}
           // change this to be answerStatus, but answerStatus needs to updated accordingly
@@ -90,14 +90,11 @@ export default function Input({
             "none"
           }
           ref={forwardedRef}
-          autoFocus
         />
       )}
       {!forwardedRef && (
         <StyledInput
           type="text"
-          onChange={handleChange}
-          onBlur={handleBlur}
           value={input}
           baseWidth={baseWidth}
           // change this to be answerStatus, but answerStatus needs to updated accordingly
